@@ -1,6 +1,6 @@
 # <p align="center">Holbegram</p>
 
-<img src="./readme_pics/intro_00.jpg>
+<img src="./readme_pics/intro_00.jpg">
 
 # Introduction
 
@@ -365,9 +365,9 @@ If we put the `hintText`: `Password` and `ispassword`: `true` it's going to be l
 
 **Repo:**
 
-GitHub repository: `holbertonschool-holbegram`
-Directory: `holbegram`
-File: `lib\widgets\text_field.dart`
+- GitHub repository: `holbertonschool-holbegram`
+- Directory: `holbegram`
+- File: `lib\widgets\text_field.dart`
 
 
 </details>
@@ -833,9 +833,9 @@ Passing the correct data to the `signUpUser`
 
 **Repo:**
 
-GitHub repository: `holbertonschool-holbegram`
-Directory: `holbegram`
-File: `lib\screens\signup_screen.dart, lib\screens\upload_image_screen.dart`
+- GitHub repository: `holbertonschool-holbegram`
+- Directory: `holbegram`
+- File: `lib\screens\signup_screen.dart, lib\screens\upload_image_screen.dart`
 
 </details>
 
