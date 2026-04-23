@@ -1,6 +1,6 @@
 # <p align="center">Holbegram</p>
 
-<img src="./readme_pics/intro_00.jpg">
+<img src="../readme_pics/intro_00.jpg">
 
 # Introduction
 
@@ -65,21 +65,21 @@ Go to Firebase Console and click Add Project and then you have to go through som
 
 **First**, we are going to build a fire_base app called holbegram:
 
-<img src="./readme_pics/intro_01.png">
+<img src="../readme_pics/intro_01.png">
 
 **Second** Disable Google Analytics for this project:
 
-<img src="./readme_pics/intro_02.png">
+<img src="../readme_pics/intro_02.png">
 
 **Authentication**
 
 Click on Enable the Authentication: Enable the Email/Password
 
-<img src="./readme_pics/intro_03.png">
+<img src="../readme_pics/intro_03.png">
 
-<img src="./readme_pics/intro_04.png">
+<img src="../readme_pics/intro_04.png">
 
-<img src="./readme_pics/intro_05.png">
+<img src="../readme_pics/intro_05.png">
 
 **Database**
 
@@ -91,15 +91,15 @@ To do that follow the following steps:
 
 2. Choose “start in test mode”
 
-<img src="./readme_pics/intro_06.png">
+<img src="../readme_pics/intro_06.png">
 
 3. choose the location that is close to you.
 
-<img src="./readme_pics/intro_07.png">
+<img src="../readme_pics/intro_07.png">
 
 4. Go to rules:
 
-<img src="./readme_pics/intro_08.png">
+<img src="../readme_pics/intro_08.png">
 
 Finally, press Publish
 
@@ -114,7 +114,7 @@ Registering the App
 
 In order to add Android support to our Flutter application, select the Android logo from the dashboard. This brings us to the following screen:
 
-<img src="./readme_pics/android_00.png">
+<img src="../readme_pics/android_00.png">
 
 The most important thing here is to match up the Android package name that you choose here with the one inside of our application.
 
@@ -144,7 +144,7 @@ The next step is to add the `Firebase configuration` file into our Flutter proje
 
 Select Download `google-services.json` from this page:
 
-<img src="./readme_pics/android_01.png">
+<img src="../readme_pics/android_01.png">
 
 Next, move the `google-services.json` file to the android/app directory within the Flutter project.
 
@@ -202,7 +202,7 @@ With this update, we’re essentially applying the Google Services plugin as wel
 
 From here, run your application on an Android device or simulator. If everything has worked correctly, you should get the following message in the dashboard:
 
-<img src="./readme_pics/android_02.png">
+<img src="../readme_pics/android_02.png">
 
 # Adding iOS support
 
@@ -216,15 +216,15 @@ You Should have Xcode installed in your PC:
 
 Once again, we’ll need to add an “iOS Bundle ID”. It is possible to use the “Android package name” for consistency:
 
-<img src="./readme_pics/ios_00.png">
+<img src="../readme_pics/ios_00.png">
 
 You’ll then need to make sure this matches up by opening the iOS folder up in `Xcode`
 
-<img src="./readme_pics/ios_01.png">
+<img src="../readme_pics/ios_01.png">
 
 - General
 
-<img src="./readme_pics/ios_02.png">
+<img src="../readme_pics/ios_02.png">
 
 Now go back to your firebase and add the iOS Bundle ID
 
@@ -234,9 +234,9 @@ after that Download the configuration file
 
 Drag and Drop the file `GoogleService-Info.plist` and move this into the root of your Xcode project within `Runner`:
 
-<img src="./readme_pics/ios_03.png">
+<img src="../readme_pics/ios_03.png">
 
-<img src="./readme_pics/ios_04.png">
+<img src="../readme_pics/ios_04.png">
 
 Be sure to move this file within Xcode to create the proper file references.
 
@@ -250,13 +250,13 @@ Be sure to move this file within Xcode to create the proper file references.
 
 Now after we set our Firebase we gonna start build our Application, First we are going to create Three screens `Login Page` `Sign up Page` and `Upload image Page`.
 
-<img src="./readme_pics/task0_00.jpg">  
+<img src="../readme_pics/task0_00.jpg">  
 
 
-<img src="./readme_pics/task0_01.jpg">  
+<img src="../readme_pics/task0_01.jpg">  
 
 
-<img src="./readme_pics/task0_02.jpg">  
+<img src="../readme_pics/task0_02.jpg">  
 
 **In your lib folder:**
 
@@ -267,14 +267,14 @@ Now after we set our Firebase we gonna start build our Application, First we are
     - signup_screen.dart
     - upload_image_screen.dart
 
-<img src="./readme_pics/task0_03.png">
+<img src="../readme_pics/task0_03.png">
 
 - create new folder named **widgets**:
 
   - inside the **widgets** folder create 1 file named:
     - text_field.dart
 
-<img src="./readme_pics/task0_04.png">
+<img src="../readme_pics/task0_04.png">
 
 **Initialization App**
 
@@ -354,13 +354,13 @@ For Example :
 
 If we put the `hintText`: `Email` it's going to be like this:
 
-<img src="./readme_pics/task1_00.jpg">
+<img src="../readme_pics/task1_00.jpg">
 
 Another Example:
 
 If we put the `hintText`: `Password` and `ispassword`: `true` it's going to be like this:
 
-<img src="./readme_pics/task1_01.jpg">
+<img src="../readme_pics/task1_01.jpg">
 
 
 **Repo:**
@@ -380,7 +380,7 @@ If we put the `hintText`: `Password` and `ispassword`: `true` it's going to be l
 
 Login Page
 
-<img src="./readme_pics/task2_00.jpg">
+<img src="../readme_pics/task2_00.jpg">
 
 You will need this <a href="https://raw.githubusercontent.com/usfbelhadj/Holbegram_asset/main/logo.webp">Logo</a> and this <a href="https://fontsfree.net/billabong-font-download.html">Font</a>
 
@@ -395,7 +395,7 @@ Inside the `pubspec.yaml`
 
 - add this - `assets/images/` under the `assets`:
 
-<img src="./readme_pics/task2_01.png">
+<img src="../readme_pics/task2_01.png">
 
 - add this under the fonts
 
@@ -406,7 +406,7 @@ Inside the `pubspec.yaml`
     - asset: assets/fonts/InstagramSans.ttf
 ```        
 
-<img src="./readme_pics/task2_02.png">
+<img src="../readme_pics/task2_02.png">
 
 **Now** Inside login_screen.dart :
 
@@ -515,7 +515,7 @@ Inside the `pubspec.yaml`
 
 Signup Page
 
-<img src="./readme_pics/task3_00.jpg">
+<img src="../readme_pics/task3_00.jpg">
 
 Inside `signup_screen.dart` create :
 
@@ -702,7 +702,7 @@ Let's put our file in the `screens` inside a new folder called `auth`:
 
 Create a new folder inside `screens/auth` called `methods`:
 
-<img src="./readme_pics/task7_00.png">
+<img src="../readme_pics/task7_00.png">
 
 Inside `methods` folder create a new file called `user_storage.dart`:
 
@@ -779,13 +779,13 @@ Let's Create this UI:
 
 The <a href="https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png">Link To the Icon</a>
 
-<img src="./readme_pics/task7_01.jpg">
+<img src="../readme_pics/task7_01.jpg">
 
 Make the camera icon and the gallery icon linking with these functions
 
 Replace the user icon with your image:
 
-<img src="./readme_pics/task7_02.jpg">
+<img src="../readme_pics/task7_02.jpg">
 
 **Repo:**
 
@@ -881,7 +881,7 @@ Create a method called `refreshUser` prototype:
 
 We are going to create the Home page now:
 
-<img src="./readme_pics/task10_00.jpg">
+<img src="../readme_pics/task10_00.jpg">
 
 **First** we are going to create all pages:
 
@@ -1054,7 +1054,7 @@ Inside `utils/posts.dart`:
 
 Inside `add_image.dart` we are going to create this UI:
 
-<img src="./readme_pics/task10_01.jpg">
+<img src="../readme_pics/task10_01.jpg">
 
 <a href="https://cdn.pixabay.com/photo/2017/11/10/05/24/add-2935429_960_720.png">Link to the Icon</a>
 
@@ -1083,7 +1083,7 @@ Call `uploadPost` when you press on `Post` and make sure to redirect to the `Hom
 
 Inside `search.dart` we are going to create this UI:
 
-<img src="./readme_pics/task13_00.jpg">
+<img src="../readme_pics/task13_00.jpg">
 
 **Make necessary changes if required**
 
@@ -1107,7 +1107,7 @@ Inside `search.dart` we are going to create this UI:
 
 Inside `favorite.dart` we are going to create this UI:
 
-<img src="./readme_pics/task14_00.jpg">
+<img src="../readme_pics/task14_00.jpg">
 
 **Make necessary changes if required**
 
@@ -1129,7 +1129,7 @@ When clicking on the `Icons.bookmark` in the Feed the image get saved and it app
 
 Inside `profile.dart` we are going to create this UI:
 
-<img src="./readme_pics/task15_00.jpg">
+<img src="../readme_pics/task15_00.jpg">
 
 The icon at the top is for Logout.
 
