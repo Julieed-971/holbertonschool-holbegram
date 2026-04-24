@@ -309,6 +309,10 @@ Future main() async {
 
 </summary>
 
+Task test rendering on Android phone:
+
+<img src="./readme_pics/task1_render.png">
+
 In the `widgets/text_field.dart` :
 
 In order to learn how a reusable widget works, we will build this TextField widget .

@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 
 class TextFieldInput extends StatelessWidget {
-  TextFieldInput(
-    this.hintText,
-    this.ispassword,
-    this.keyboardType,
-    this.suffixIcon, {
+  TextFieldInput({
     super.key,
+    required this.controller,
+    required this.hintText,
+    required this.ispassword,
+    required this.keyboardType,
+    this.suffixIcon,
   });
-
-  final TextEditingController controller = TextEditingController();
+  final TextEditingController controller;
   final bool ispassword;
   final String hintText;
   final Widget? suffixIcon;
@@ -30,15 +30,15 @@ class TextFieldInput extends StatelessWidget {
           ),
         ),
         focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(
-              color: Colors.transparent,
-              style: BorderStyle.none,
+          borderSide: BorderSide(
+            color: Colors.transparent,
+            style: BorderStyle.none,
           ),
         ),
         enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(
-              color: Colors.transparent,
-              style: BorderStyle.none,
+          borderSide: BorderSide(
+            color: Colors.transparent,
+            style: BorderStyle.none,
           ),
         ),
         filled: true,
