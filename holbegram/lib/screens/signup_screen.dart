@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:holbegram/widgets/text_field.dart';
+import 'login_screen.dart';
 
 class SignupScreen extends StatefulWidget {
   const SignupScreen({
@@ -21,6 +22,16 @@ class SignupScreen extends StatefulWidget {
 
 class _SignupScreenState extends State<SignupScreen> {
   bool _passwordVisible = false;
+
+  final TextEditingController _loginEmailController = TextEditingController();
+  final TextEditingController _loginPasswordController =
+      TextEditingController();
+
+  @override
+  void dispose() {
+    _loginEmailController.dispose();
+    _loginPasswordController.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -95,7 +106,7 @@ class _SignupScreenState extends State<SignupScreen> {
                   ),
                   SizedBox(height: 24),
                   TextFieldInput(
-                    controller: widget.passwordController,
+                    controller: widget.passwordConfirmController,
                     hintText: "Confirm Password",
                     ispassword: !_passwordVisible,
                     keyboardType: TextInputType.visiblePassword,
@@ -144,7 +155,17 @@ class _SignupScreenState extends State<SignupScreen> {
                 children: [
                   Text("Have an account ?"),
                   TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => LoginScreen(
+                            emailController: _loginEmailController,
+                            passwordController: _loginPasswordController,
+                          ),
+                        ),
+                      );
+                    },
                     child: Text(
                       "Log in",
                       style: TextStyle(

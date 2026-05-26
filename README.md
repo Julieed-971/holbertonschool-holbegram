@@ -525,7 +525,7 @@ Inside the `pubspec.yaml`
 
 </summary>
 
-#### Task test rendering of the login page on Android:
+#### Task test rendering of the signup page on Android:
 
 <img width="400px" src="./readme_pics/signup_screen_rendering.png">
 
@@ -571,6 +571,11 @@ If you want to do it alone it's a plus too or jump to the next task.
 ### Task 4. Linking the Pages
 
 </summary>
+
+
+#### Task test rendering of linking the login and signup pages on Android:
+
+<img src="./readme_pics/linking_pages.gif">
 
 Inside `login_screen.dart`:
 

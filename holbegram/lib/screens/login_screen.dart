@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:holbegram/widgets/text_field.dart';
+import 'signup_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({
@@ -17,6 +18,24 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   bool _passwordVisible = false;
+
+  final TextEditingController _signupEmailController = TextEditingController();
+  final TextEditingController _signupUsernameController =
+      TextEditingController();
+  final TextEditingController _signupPasswordController =
+      TextEditingController();
+  final TextEditingController _signupPasswordConfirmController =
+      TextEditingController();
+
+  @override
+  void dispose() {
+    // 2. CLEAN UP MEMORY (Crucial to prevent leaks)
+    _signupEmailController.dispose();
+    _signupUsernameController.dispose();
+    _signupPasswordController.dispose();
+    _signupPasswordConfirmController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -111,7 +130,20 @@ class _LoginScreenState extends State<LoginScreen> {
                 children: [
                   Text("Don't have an account"),
                   TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push<void>(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => SignupScreen(
+                            emailController: _signupEmailController,
+                            usernameController: _signupUsernameController,
+                            passwordController: _signupPasswordController,
+                            passwordConfirmController:
+                                _signupPasswordConfirmController,
+                          ),
+                        ),
+                      );
+                    },
                     child: Text(
                       "Sign up",
                       style: TextStyle(
