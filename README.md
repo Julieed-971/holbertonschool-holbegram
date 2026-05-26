@@ -525,6 +525,12 @@ Inside the `pubspec.yaml`
 
 </summary>
 
+#### Task test rendering of the login page on Android:
+
+<img width="400px" src="./readme_pics/signup_screen_rendering.png">
+
+<img src="./readme_pics/signup_screen_rendering.gif">
+
 Signup Page
 
 <img src="./readme_pics/task3_00.jpg">

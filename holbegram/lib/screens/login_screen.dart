@@ -103,11 +103,7 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
             Flexible(flex: 0, child: Container()),
             SizedBox(height: 24),
-            Divider(
-              thickness: 2,
-              indent: 20,
-              endIndent: 20,
-            ),
+            Divider(thickness: 2, indent: 20, endIndent: 20),
             Padding(
               padding: EdgeInsets.symmetric(vertical: 12),
               child: Row(
@@ -130,13 +126,9 @@ class _LoginScreenState extends State<LoginScreen> {
             SizedBox(height: 10),
             Row(
               children: [
-                Flexible(child: Divider(
-                  thickness: 2,
-                  indent: 20,)),
+                Flexible(child: Divider(thickness: 2, indent: 20)),
                 Text(" OR "),
-                Flexible(child: Divider(
-                  thickness: 2,
-                  endIndent: 20,)),
+                Flexible(child: Divider(thickness: 2, endIndent: 20)),
               ],
             ),
             SizedBox(height: 10),
