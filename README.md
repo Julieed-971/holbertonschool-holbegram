@@ -613,7 +613,7 @@ In the `lib` folder:
 
 - Create a new folder called models that contains two file :
   - `user.dart`
-  - `posts.dart`
+  - `post.dart`
 
 In the `lib/models/user.dart` create a class called `Users`:
 
@@ -632,9 +632,9 @@ In the `lib/models/user.dart` create a class called `Users`:
 Create a new Method called `fromSnap` that accepts `DocumentSnapshot` as parameter
 
 - Prototype :
-  - `static Userd fromSnap(DocumentSnapshot snap)`
+  - `static Users fromSnap(DocumentSnapshot snap)`
 
-Create a variable inside the `fromJson` called `snapshot` that is going to take the data from `snap`
+Create a variable inside the `fromSnap` called `snapshot` that is going to take the data from `snap`
 
 Return every value inside it.
 
@@ -644,7 +644,7 @@ Repo:
 
 - GitHub repository: `holbertonschool-holbegram`
 - Directory: `holbegram`
-- File: `lib/models/user.dart, lib/models/posts.dart`
+- File: `lib/models/user.dart, lib/models/post.dart`
 
 </details>
 
@@ -868,7 +868,7 @@ Passing the correct data to the `signUpUser`
 
 </summary>
 
-Create a new method called `getUserDetails` inside `auth_methods.dart` that gets the current user details and return `Userd.fromSnap` within the details
+Create a new method called `getUserDetails` inside `auth_methods.dart` that gets the current user details and return `Users.fromSnap` within the details
 
 Inside the `lib/` create a new folder called `providers` that contain `user_provider.dart file`:
 
