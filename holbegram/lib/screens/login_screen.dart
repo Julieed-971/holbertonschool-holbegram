@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:holbegram/methods/auth_methods.dart';
 import 'package:holbegram/widgets/text_field.dart';
 import 'signup_screen.dart';
 
@@ -26,6 +27,7 @@ class _LoginScreenState extends State<LoginScreen> {
       TextEditingController();
   final TextEditingController _signupPasswordConfirmController =
       TextEditingController();
+  final AuthMethode _authMethode = AuthMethode();
 
   @override
   void dispose() {
@@ -97,7 +99,31 @@ class _LoginScreenState extends State<LoginScreen> {
                           Color.fromARGB(218, 226, 37, 24),
                         ),
                       ),
-                      onPressed: () {},
+                      onPressed: () async {
+                        String res = await _authMethode.login(
+                          email: widget.emailController.text,
+                          password: widget.passwordController.text,
+                        );
+                        if (res == 'success') {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(content: Text("Login successful")),
+                          );
+                          await Future.delayed(const Duration(seconds: 2));
+
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => HomeScreen(),
+                            ),
+                          );
+                        } else {
+                          if (mounted) {
+                            ScaffoldMessenger.of(
+                              context,
+                            ).showSnackBar(SnackBar(content: Text(res)));
+                          }
+                        }
+                      },
                       child: Text(
                         "Log in",
                         style: TextStyle(color: Colors.white),

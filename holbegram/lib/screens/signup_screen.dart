@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:holbegram/widgets/text_field.dart';
+import 'package:holbegram/methods/auth_methods.dart';
 import 'login_screen.dart';
 
 class SignupScreen extends StatefulWidget {
@@ -26,6 +27,7 @@ class _SignupScreenState extends State<SignupScreen> {
   final TextEditingController _loginEmailController = TextEditingController();
   final TextEditingController _loginPasswordController =
       TextEditingController();
+  final AuthMethode _authMethode = AuthMethode();
 
   @override
   void dispose() {
@@ -136,7 +138,36 @@ class _SignupScreenState extends State<SignupScreen> {
                         ),
                       ),
 
-                      onPressed: () {},
+                      onPressed: () async {
+                        String res = await _authMethode.signUpUser(
+                          email: widget.emailController.text,
+                          password: widget.passwordController.text,
+                          username: widget.usernameController.text,
+                        );
+                        if (res == 'success') {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(content: Text("Signup successful")),
+                          );
+                          await Future.delayed(const Duration(seconds: 2));
+
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => AddPicture(
+                                email: widget.emailController.text,
+                                password: widget.passwordController.text,
+                                username: widget.usernameController.text,
+                              ),
+                            ),
+                          );
+                        } else {
+                          if (mounted) {
+                            ScaffoldMessenger.of(
+                              context,
+                            ).showSnackBar(SnackBar(content: Text(res)));
+                          }
+                        }
+                      },
                       child: Text(
                         "Sign up",
                         style: TextStyle(color: Colors.white),
