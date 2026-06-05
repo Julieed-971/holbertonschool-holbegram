@@ -654,6 +654,13 @@ Repo:
 
 </summary>
 
+#### Task test rendering of linking the login and signup pages on Android:
+
+<img src="./readme_pics/task6_signup_rendering.gif">  
+
+<img src="./readme_pics/task6_login_rendering.gif">
+
+
 Create a new folder inside the `lib` called `methods`:
 
 Inside `lib/methods` create a new file called `auth_methods.dart`
@@ -720,6 +727,11 @@ After that:
 ### Task 7. Upload User Image
 
 </summary>
+
+#### Task test rendering of linking the login and signup pages on Android:
+
+<img src="./readme_pics/task7_rendering.gif">
+
 
 Let's put our file in the `screens` inside a new folder called `auth`:
 
