@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:holbegram/methods/auth_methods.dart';
 import 'package:holbegram/widgets/text_field.dart';
 import 'signup_screen.dart';
+import 'package:holbegram/screens/upload_image_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({
@@ -94,9 +95,10 @@ class _LoginScreenState extends State<LoginScreen> {
                     height: 48,
                     width: double.infinity,
                     child: ElevatedButton(
-                      style: ButtonStyle(
-                        backgroundColor: WidgetStateProperty.all(
-                          Color.fromARGB(218, 226, 37, 24),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Color.fromARGB(218, 226, 37, 24),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(5),
                         ),
                       ),
                       onPressed: () async {
@@ -109,11 +111,14 @@ class _LoginScreenState extends State<LoginScreen> {
                             SnackBar(content: Text("Login successful")),
                           );
                           await Future.delayed(const Duration(seconds: 2));
-
                           Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => HomeScreen(),
+                              builder: (context) => AddPicture(
+                                email: widget.emailController.text,
+                                password: widget.passwordController.text,
+                                username: widget.emailController.text,
+                              ),
                             ),
                           );
                         } else {

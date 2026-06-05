@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:holbegram/widgets/text_field.dart';
 import 'package:holbegram/methods/auth_methods.dart';
+import 'package:holbegram/screens/upload_image_screen.dart';
 import 'login_screen.dart';
 
 class SignupScreen extends StatefulWidget {
@@ -132,12 +133,12 @@ class _SignupScreenState extends State<SignupScreen> {
                     height: 48,
                     width: double.infinity,
                     child: ElevatedButton(
-                      style: ButtonStyle(
-                        backgroundColor: WidgetStateProperty.all(
-                          Color.fromARGB(218, 226, 37, 24),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Color.fromARGB(218, 226, 37, 24),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(5),
                         ),
                       ),
-
                       onPressed: () async {
                         String res = await _authMethode.signUpUser(
                           email: widget.emailController.text,
