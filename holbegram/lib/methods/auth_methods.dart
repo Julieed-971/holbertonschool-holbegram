@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cloudinary_flutter/image/cld_image.dart';
 import 'package:cloudinary_flutter/cloudinary_object.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:holbegram/screens/auth/methods/user_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'dart:typed_data';
@@ -48,12 +49,25 @@ class AuthMethode {
       if (user == null) {
         return ('Failed to create user: User object is null');
       }
+      String photoUrl = "";
+      if (file != null) {
+        final StorageMethods storageMethods = StorageMethods();
+        try {
+          photoUrl = await storageMethods.uploadImageToStorage(
+            false,
+            "holbegram_images/profile_pics",
+            file,
+          );
+        } catch (error) {
+          print("Image upload failed: $error");
+        }
+      }
       Users users = Users(
         uid: user.uid,
         email: email,
         username: username,
         bio: "",
-        photoUrl: "",
+        photoUrl: photoUrl,
         followers: [],
         following: [],
         posts: [],

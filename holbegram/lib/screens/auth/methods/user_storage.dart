@@ -5,8 +5,8 @@ import 'dart:convert';
 
 class StorageMethods {
   final String cloudinaryUrl =
-      "https://api.cloudinary.com/v1_1/your-cloud-name/image/upload";
-  final String cloudinaryPreset = "your-upload-preset";
+      "https://api.cloudinary.com/v1_1/dv1ec3lfn/image/upload";
+  final String cloudinaryPreset = "holbegram_upload";
 
   Future<String> uploadImageToStorage(
     bool isPost,
@@ -18,7 +18,9 @@ class StorageMethods {
     var request = http.MultipartRequest('POST', uri);
     request.fields['upload_preset'] = cloudinaryPreset;
     request.fields['folder'] = childName;
-    request.fields['public_id'] = isPost ? uniqueId : '';
+    if (isPost) {
+      request.fields['public_id'] = uniqueId;
+    }
 
     var multipartFile = http.MultipartFile.fromBytes(
       'file',
@@ -33,7 +35,16 @@ class StorageMethods {
       var jsonResponse = jsonDecode(String.fromCharCodes(responseData));
       return jsonResponse['secure_url'];
     } else {
-      throw Exception('Failed to upload image to Cloudinary');
+      // --- DEBUGGING CHANGE START ---
+      var errorData = await response.stream.toBytes();
+      var errorMessage = String.fromCharCodes(errorData);
+      print("Cloudinary Error Status: ${response.statusCode}");
+      print("Cloudinary Error Body: $errorMessage");
+      // --- DEBUGGING CHANGE END ---
+
+      throw Exception(
+        'Failed to upload image to Cloudinary: ${response.statusCode}',
+      );
     }
   }
 }

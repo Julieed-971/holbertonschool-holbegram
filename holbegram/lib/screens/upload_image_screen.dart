@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'dart:typed_data';
 import 'package:image_picker/image_picker.dart';
 import 'package:holbegram/screens/auth/methods/user_storage.dart';
+import 'package:holbegram/methods/auth_methods.dart';
 
 class AddPicture extends StatefulWidget {
   const AddPicture({
@@ -155,7 +156,56 @@ class _AddPictureState extends State<AddPicture> {
                   ),
                   padding: EdgeInsets.symmetric(horizontal: 25, vertical: 0),
                 ),
-                onPressed: () {},
+                onPressed: () async {
+                  if (_image == null) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text("Please select an image first"),
+                      ),
+                    );
+                    return;
+                  }
+
+                  setState(() {
+                    _isLoading = true;
+                  });
+
+                  final AuthMethode authMethode = AuthMethode();
+
+                  String res = await authMethode.signUpUser(
+                    email: widget.email,
+                    password: widget.password,
+                    username: widget.username,
+                    file: _image,
+                  );
+
+                  setState(() {
+                    _isLoading = false;
+                  });
+
+                  if (res == 'success') {
+                    if (mounted) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text(
+                            "You successfully signed up on Holbegram",
+                          ),
+                        ),
+                      );
+                      // await Future.delayed(const Duration(seconds: 2));
+                      // Navigator.pushReplacement(
+                      //   context,
+                      //   MaterialPageRoute(builder: (context) => Home()),
+                      // );
+                    }
+                  } else {
+                    if (mounted) {
+                      ScaffoldMessenger.of(
+                        context,
+                      ).showSnackBar(SnackBar(content: Text(res)));
+                    }
+                  }
+                },
                 child: Text(
                   "Next",
                   style: TextStyle(color: Colors.white, fontSize: 30),

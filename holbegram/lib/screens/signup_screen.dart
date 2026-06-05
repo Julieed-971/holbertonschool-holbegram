@@ -139,18 +139,7 @@ class _SignupScreenState extends State<SignupScreen> {
                           borderRadius: BorderRadius.circular(5),
                         ),
                       ),
-                      onPressed: () async {
-                        String res = await _authMethode.signUpUser(
-                          email: widget.emailController.text,
-                          password: widget.passwordController.text,
-                          username: widget.usernameController.text,
-                        );
-                        if (res == 'success') {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(content: Text("Signup successful")),
-                          );
-                          await Future.delayed(const Duration(seconds: 2));
-
+                      onPressed: () {
                           Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
@@ -161,13 +150,6 @@ class _SignupScreenState extends State<SignupScreen> {
                               ),
                             ),
                           );
-                        } else {
-                          if (mounted) {
-                            ScaffoldMessenger.of(
-                              context,
-                            ).showSnackBar(SnackBar(content: Text(res)));
-                          }
-                        }
                       },
                       child: Text(
                         "Sign up",

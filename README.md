@@ -836,6 +836,14 @@ Replace the user icon with your image:
 
 </summary>
 
+#### Task test rendering of linking the login and signup pages on Android:
+
+<img width="400px" src="./readme_pics/task8_rendering.gif">   
+
+<img width="400px" src="./readme_pics/task8_cloudinary.gif">   
+
+
+
 We are going to pass the sign up data to our upload picture page:
 
 Inside `signup_screen.dart`
