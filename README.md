@@ -656,9 +656,9 @@ Repo:
 
 #### Task test rendering of linking the login and signup pages on Android:
 
-<img src="./readme_pics/task6_signup_rendering.gif">  
+<img width="400px" src="./readme_pics/task6_signup_rendering.gif">  
 
-<img src="./readme_pics/task6_login_rendering.gif">
+<img width="400px" src="./readme_pics/task6_login_rendering.gif">
 
 
 Create a new folder inside the `lib` called `methods`:
@@ -730,7 +730,7 @@ After that:
 
 #### Task test rendering of linking the login and signup pages on Android:
 
-<img src="./readme_pics/task7_rendering.gif">
+<img width="400px" src="./readme_pics/task7_rendering.gif">
 
 
 Let's put our file in the `screens` inside a new folder called `auth`:
