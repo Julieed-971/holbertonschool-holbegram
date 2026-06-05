@@ -840,7 +840,7 @@ Replace the user icon with your image:
 
 <img width="400px" src="./readme_pics/task8_rendering.gif">   
 
-<img width="400px" src="./readme_pics/task8_cloudinary.gif">   
+<img width="400px" src="./readme_pics/task8_cloudinary1.gif">   
 
 
 
