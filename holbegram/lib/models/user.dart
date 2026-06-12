@@ -26,7 +26,9 @@ class Users {
   });
 
   static Users fromSnap(DocumentSnapshot snap) {
-
+    if (!snap.exists) {
+      throw Exception("User document does not exist in Firestore");
+    }
     var snapshot = snap.data() as Map<String, dynamic>;
 
     return Users(

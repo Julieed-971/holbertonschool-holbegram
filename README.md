@@ -385,7 +385,7 @@ If we put the `hintText`: `Password` and `ispassword`: `true` it's going to be l
 #### Task test rendering of the login page on Android:
 
 <img width="400px" src="./readme_pics/task2_rendering.png">
-
+<br/><br/>
 <img src="./readme_pics/task_2_rendering.gif">
 
 ### Task instructions:
@@ -528,7 +528,7 @@ Inside the `pubspec.yaml`
 #### Task test rendering of the signup page on Android:
 
 <img width="400px" src="./readme_pics/signup_screen_rendering.png">
-
+<br/><br/>
 <img src="./readme_pics/signup_screen_rendering.gif">
 
 Signup Page
@@ -657,7 +657,7 @@ Repo:
 #### Task test rendering of linking the login and signup pages on Android:
 
 <img width="400px" src="./readme_pics/task6_signup_rendering.gif">  
-
+<br/><br/>
 <img width="400px" src="./readme_pics/task6_login_rendering.gif">
 
 
@@ -839,7 +839,7 @@ Replace the user icon with your image:
 #### Task test rendering of linking the login and signup pages on Android:
 
 <img width="400px" src="./readme_pics/task8_rendering.gif">   
-
+<br/><br/>
 <img width="400px" src="./readme_pics/task8_cloudinary1.gif">   
 
 
@@ -896,7 +896,7 @@ Inside `user_provider.dart` Create a class called `UserProvider` mixin with the 
 
 Create private variables:
 
-- `_user` takes `Userd`
+- `_user` takes `Users`
 - `_authMethode` takes `AuthMethode()`
 
 Create a getter for `_user`

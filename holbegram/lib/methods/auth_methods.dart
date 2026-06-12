@@ -90,4 +90,19 @@ class AuthMethode {
       return ('Error: ${error.toString()}');
     }
   }
+
+  Future<Users> getUserDetails() async {
+    if (_auth.currentUser == null) {
+      throw Exception("No user currently logged in");
+    }
+    // Get current user uid
+    final String currentUserUid = _auth.currentUser!.uid;
+    // Fetch document from Firestore
+    final userSnap = await _firestore
+        .collection('users')
+        .doc(currentUserUid)
+        .get();
+    // Pass the snapshot to fromSnap
+    return Users.fromSnap(userSnap);
+  }
 }

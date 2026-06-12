@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'dart:typed_data';
 import 'package:image_picker/image_picker.dart';
 import 'package:holbegram/screens/auth/methods/user_storage.dart';
 import 'package:holbegram/methods/auth_methods.dart';
+import 'package:holbegram/providers/user_provider.dart';
 
 class AddPicture extends StatefulWidget {
   const AddPicture({
@@ -184,20 +186,37 @@ class _AddPictureState extends State<AddPicture> {
                   });
 
                   if (res == 'success') {
-                    if (mounted) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          content: Text(
-                            "You successfully signed up on Holbegram",
+                    final userProvider = Provider.of<UserProvider>(
+                      context,
+                      listen: false,
+                    );
+                    try {
+                      await userProvider.refreshUser();
+                      if (mounted) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text(
+                              "You successfully signed up on Holbegram",
+                            ),
                           ),
-                        ),
-                      );
-                      // await Future.delayed(const Duration(seconds: 2));
-                      // Navigator.pushReplacement(
-                      //   context,
-                      //   MaterialPageRoute(builder: (context) => Home()),
-                      // );
+                        );
+                      }
+                    } catch (error) {
+                      if (mounted) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text(
+                              "Account created, but failed to load profile: $error",
+                            ),
+                          ),
+                        );
+                      }
                     }
+                    // await Future.delayed(const Duration(seconds: 2));
+                    // Navigator.pushReplacement(
+                    //   context,
+                    //   MaterialPageRoute(builder: (context) => Home()),
+                    // );
                   } else {
                     if (mounted) {
                       ScaffoldMessenger.of(
