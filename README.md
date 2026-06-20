@@ -922,6 +922,10 @@ Create a method called `refreshUser` prototype:
 
 </summary>
 
+#### Task test rendering of the homepage without post content for now:
+
+<img width="400px" src="./readme_pics/task_10_homepage.gif">   
+
 We are going to create the Home page now:
 
 <img src="./readme_pics/task10_00.jpg">

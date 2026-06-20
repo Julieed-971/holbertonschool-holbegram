@@ -140,16 +140,16 @@ class _SignupScreenState extends State<SignupScreen> {
                         ),
                       ),
                       onPressed: () {
-                          Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => AddPicture(
-                                email: widget.emailController.text,
-                                password: widget.passwordController.text,
-                                username: widget.usernameController.text,
-                              ),
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => AddPicture(
+                              email: widget.emailController.text,
+                              password: widget.passwordController.text,
+                              username: widget.usernameController.text,
                             ),
-                          );
+                          ),
+                        );
                       },
                       child: Text(
                         "Sign up",

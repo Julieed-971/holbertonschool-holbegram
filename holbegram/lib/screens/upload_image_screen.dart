@@ -5,6 +5,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:holbegram/screens/auth/methods/user_storage.dart';
 import 'package:holbegram/methods/auth_methods.dart';
 import 'package:holbegram/providers/user_provider.dart';
+import 'package:holbegram/screens/home.dart';
 
 class AddPicture extends StatefulWidget {
   const AddPicture({
@@ -212,11 +213,11 @@ class _AddPictureState extends State<AddPicture> {
                         );
                       }
                     }
-                    // await Future.delayed(const Duration(seconds: 2));
-                    // Navigator.pushReplacement(
-                    //   context,
-                    //   MaterialPageRoute(builder: (context) => Home()),
-                    // );
+                    await Future.delayed(const Duration(seconds: 2));
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(builder: (context) => Home()),
+                    );
                   } else {
                     if (mounted) {
                       ScaffoldMessenger.of(

@@ -3,6 +3,10 @@ import 'package:holbegram/methods/auth_methods.dart';
 import 'package:holbegram/widgets/text_field.dart';
 import 'signup_screen.dart';
 import 'package:holbegram/screens/upload_image_screen.dart';
+import 'package:provider/provider.dart';
+import 'package:holbegram/providers/user_provider.dart';
+import 'package:holbegram/screens/home.dart';
+
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({
@@ -107,20 +111,33 @@ class _LoginScreenState extends State<LoginScreen> {
                           password: widget.passwordController.text,
                         );
                         if (res == 'success') {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(content: Text("Login successful")),
-                          );
-                          await Future.delayed(const Duration(seconds: 2));
-                          Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => AddPicture(
-                                email: widget.emailController.text,
-                                password: widget.passwordController.text,
-                                username: widget.emailController.text,
-                              ),
-                            ),
-                          );
+                          try {
+                            final userProvider = Provider.of<UserProvider>(
+                              context,
+                              listen: false,
+                            );
+                            await userProvider.refreshUser();
+                            if (mounted) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(content: Text("Login successful")),
+                              );
+                              await Future.delayed(const Duration(seconds: 2));
+                              Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(builder: (context) => Home()),
+                              );
+                            }
+                          } catch (error) {
+                            if (mounted) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text(
+                                    "Login successful, but failed to load profile: $error",
+                                  ),
+                                ),
+                              );
+                            }
+                          }
                         } else {
                           if (mounted) {
                             ScaffoldMessenger.of(
