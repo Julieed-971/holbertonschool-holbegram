@@ -8,18 +8,20 @@ class StorageMethods {
       "https://api.cloudinary.com/v1_1/dv1ec3lfn/image/upload";
   final String cloudinaryPreset = "holbegram_upload";
 
-  Future<String> uploadImageToStorage(
+  Future<Map<String, String>> uploadImageToStorage(
     bool isPost,
     String childName,
     Uint8List file,
   ) async {
     String uniqueId = const Uuid().v1();
+    String publicId = isPost ? '$childName/$uniqueId' : '$childName/$uniqueId';
+
     var uri = Uri.parse(cloudinaryUrl);
     var request = http.MultipartRequest('POST', uri);
     request.fields['upload_preset'] = cloudinaryPreset;
     request.fields['folder'] = childName;
     if (isPost) {
-      request.fields['public_id'] = uniqueId;
+      request.fields['public_id'] = publicId;
     }
 
     var multipartFile = http.MultipartFile.fromBytes(
@@ -33,7 +35,10 @@ class StorageMethods {
     if (response.statusCode == 200) {
       var responseData = await response.stream.toBytes();
       var jsonResponse = jsonDecode(String.fromCharCodes(responseData));
-      return jsonResponse['secure_url'];
+
+      String secureUrl = jsonResponse['secure_url'];
+      String fullPublicId = jsonResponse['public_id'];
+      return {'url': secureUrl, 'publicId': fullPublicId};
     } else {
       // --- DEBUGGING CHANGE START ---
       var errorData = await response.stream.toBytes();

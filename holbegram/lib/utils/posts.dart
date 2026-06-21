@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:holbegram/providers/user_provider.dart';
+import 'package:holbegram/screens/pages/methods/post_storage.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Posts extends StatefulWidget {
@@ -33,7 +34,8 @@ class _PostsState extends State<Posts> {
             final String profImage = postData['profImage'] ?? '';
             final String caption = postData['caption'] ?? '';
             final String postUrl = postData['postUrl'] ?? '';
-            // final String postId = posts[index].id; // You might need this for deletion later
+            final String postId = posts[index].id;
+            final String publicId = postData['publicId'] ?? '';
 
             return SingleChildScrollView(
               child: Container(
@@ -76,10 +78,20 @@ class _PostsState extends State<Posts> {
                           // More Icon
                           IconButton(
                             icon: const Icon(Icons.more_horiz),
-                            onPressed: () {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(content: Text("Post Deleted")),
-                              );
+                            onPressed: () async {
+                              try {
+                                await PostStorage().deletePost(
+                                  postId,
+                                  publicId,
+                                );
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(content: Text("Post Deleted")),
+                                );
+                              } catch (error) {
+                                throw Exception(
+                                  'Error deleting the post: ${error}',
+                                );
+                              }
                             },
                           ),
                         ],

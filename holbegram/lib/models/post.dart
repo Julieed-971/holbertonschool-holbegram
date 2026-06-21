@@ -1,51 +1,55 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+  import 'package:cloud_firestore/cloud_firestore.dart';
 
-class Post {
-  String caption = "";
-  String uid = "";
-  String username = "";
-  List<dynamic> likes = [];
-  String postId = "";
-  DateTime? datePublished;
-  String postUrl = "";
-  String profImage = "";
+  class Post {
+    String caption = "";
+    String uid = "";
+    String username = "";
+    List<dynamic> likes = [];
+    String postId = "";
+    String publicId = "";
+    DateTime? datePublished;
+    String postUrl = "";
+    String profImage = "";
 
-  Post({
-    required this.caption,
-    required this.uid,
-    required this.username,
-    required this.likes,
-    required this.postId,
-    required this.datePublished,
-    required this.postUrl,
-    required this.profImage,
-  });
+    Post({
+      required this.caption,
+      required this.uid,
+      required this.username,
+      required this.likes,
+      required this.postId,
+      required this.publicId,
+      required this.datePublished,
+      required this.postUrl,
+      required this.profImage,
+    });
 
-  static Post fromSnap(DocumentSnapshot snap) {
-    var snapshot = snap.data() as Map<String, dynamic>;
+    static Post fromSnap(DocumentSnapshot snap) {
+      var snapshot = snap.data() as Map<String, dynamic>;
 
-    return Post(
-      caption: snapshot['caption'] ?? "",
-      uid: snapshot['uid'] ?? "",
-      username: snapshot['username'] ?? "",
-      likes: snapshot['likes'] ?? [],
-      postId: snapshot['postId'] ?? "",
-      datePublished: snapshot['datePublished'],
-      postUrl: snapshot['postUrl'] ?? "",
-      profImage: snapshot['profImage'] ?? "",
-    );
+      return Post(
+        caption: snapshot['caption'] ?? "",
+        uid: snapshot['uid'] ?? "",
+        username: snapshot['username'] ?? "",
+        likes: snapshot['likes'] ?? [],
+        postId: snapshot['postId'] ?? "",
+        publicId: snapshot['publicId'] ?? "",
+        datePublished: snapshot['datePublished'],
+        postUrl: snapshot['postUrl'] ?? "",
+        profImage: snapshot['profImage'] ?? "",
+      );
+    }
+
+    Map<String, dynamic> toJson() {
+      return {
+        'caption': caption,
+        'uid': uid,
+        'username': username,
+        'likes': likes,
+        'postId': postId,
+        'publicId': publicId,
+        'datePublished': datePublished,
+        'postUrl': postUrl,
+        'profImage': profImage,
+      };
+    }
   }
-
-  Map<String, dynamic> toJson() {
-    return {
-      'caption': caption,
-      'uid': uid,
-      'username': username,
-      'likes': likes,
-      'postId': postId,
-      'datePublished': datePublished,
-      'postUrl': postUrl,
-      'profImage': profImage,
-    };
-  }
-}
