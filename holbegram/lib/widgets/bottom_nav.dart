@@ -7,7 +7,7 @@ import 'package:holbegram/screens/pages/profile_screen.dart';
 import 'package:holbegram/screens/pages/search.dart';
 
 class BottomNav extends StatefulWidget {
-  BottomNav({super.key});
+  const BottomNav({super.key});
 
   @override
   State<BottomNav> createState() => _BottomNavState();
@@ -29,18 +29,31 @@ class _BottomNavState extends State<BottomNav> {
     super.dispose();
   }
 
+  // This function handles CLICKS on the Bottom Bar
   void _onPageChanged(int index) {
     setState(() {
       _currentIndex = index;
     });
+    // CRITICAL FIX: Animate the PageView to the selected index
+    _pageController.animateToPage(
+      index,
+      duration: const Duration(milliseconds: 300),
+      curve: Curves.easeInOut,
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: PageView(
+        // This handles SWIPES on the PageView
+        onPageChanged: (index) {
+          setState(() {
+            _currentIndex = index;
+          });
+        },
         controller: _pageController,
-        children: [
+        children: const [
           Feed(),
           Search(),
           AddImage(),
@@ -53,57 +66,57 @@ class _BottomNavState extends State<BottomNav> {
         showElevation: true,
         itemCornerRadius: 8,
         curve: Curves.easeInBack,
-        onItemSelected: _onPageChanged,
+        onItemSelected: _onPageChanged, // Calls the function we fixed above
         items: [
           BottomNavyBarItem(
-            icon: Icon(Icons.home_outlined),
-            title: Text(
+            icon: const Icon(Icons.home_outlined),
+            title: const Text(
               "Home",
               style: TextStyle(fontSize: 25, fontFamily: "Billabong"),
             ),
-            activeColor: Color.fromARGB(218, 226, 37, 24),
+            activeColor: const Color.fromARGB(218, 226, 37, 24),
             textAlign: TextAlign.center,
-            inactiveColor: Color.fromARGB(255, 0, 0, 0),
+            inactiveColor: Colors.black, // Changed from transparent for visibility
           ),
           BottomNavyBarItem(
-            icon: Icon(Icons.search),
-            title: Text(
+            icon: const Icon(Icons.search),
+            title: const Text(
               "Search",
               style: TextStyle(fontSize: 25, fontFamily: "Billabong"),
             ),
-            activeColor: Color.fromARGB(218, 226, 37, 24),
+            activeColor: const Color.fromARGB(218, 226, 37, 24),
             textAlign: TextAlign.center,
-            inactiveColor: Color.fromARGB(255, 0, 0, 0),
+            inactiveColor: Colors.black,
           ),
           BottomNavyBarItem(
-            icon: Icon(Icons.add),
-            title: Text(
+            icon: const Icon(Icons.add),
+            title: const Text(
               "Add",
               style: TextStyle(fontSize: 25, fontFamily: "Billabong"),
             ),
-            activeColor: Color.fromARGB(218, 226, 37, 24),
+            activeColor: const Color.fromARGB(218, 226, 37, 24),
             textAlign: TextAlign.center,
-            inactiveColor: Color.fromARGB(255, 0, 0, 0),
+            inactiveColor: Colors.black,
           ),
           BottomNavyBarItem(
-            icon: Icon(Icons.favorite_outline),
-            title: Text(
+            icon: const Icon(Icons.favorite_outline),
+            title: const Text(
               "Likes",
               style: TextStyle(fontSize: 25, fontFamily: "Billabong"),
             ),
-            activeColor: Color.fromARGB(218, 226, 37, 24),
+            activeColor: const Color.fromARGB(218, 226, 37, 24),
             textAlign: TextAlign.center,
-            inactiveColor: Color.fromARGB(255, 0, 0, 0),
+            inactiveColor: Colors.black,
           ),
           BottomNavyBarItem(
-            icon: Icon(Icons.person_outline),
-            title: Text(
+            icon: const Icon(Icons.person_outline),
+            title: const Text(
               "Profile",
               style: TextStyle(fontSize: 25, fontFamily: "Billabong"),
             ),
-            activeColor: Color.fromARGB(218, 226, 37, 24),
+            activeColor: const Color.fromARGB(218, 226, 37, 24),
             textAlign: TextAlign.center,
-            inactiveColor: Color.fromARGB(255, 0, 0, 0),
+            inactiveColor: Colors.black,
           ),
         ],
       ),

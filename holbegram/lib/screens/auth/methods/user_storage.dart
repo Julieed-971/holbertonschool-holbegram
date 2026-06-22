@@ -14,7 +14,7 @@ class StorageMethods {
     Uint8List file,
   ) async {
     String uniqueId = const Uuid().v1();
-    String publicId = isPost ? '$childName/$uniqueId' : '$childName/$uniqueId';
+    String publicId = uniqueId;
 
     var uri = Uri.parse(cloudinaryUrl);
     var request = http.MultipartRequest('POST', uri);

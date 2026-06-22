@@ -49,15 +49,17 @@ class AuthMethode {
       if (user == null) {
         return ('Failed to create user: User object is null');
       }
+      Map<String, String> photoData = {'url': "", 'publicId': ""};
       String photoUrl = "";
       if (file != null) {
         final StorageMethods storageMethods = StorageMethods();
         try {
-          photoUrl = await storageMethods.uploadImageToStorage(
+          photoData = await storageMethods.uploadImageToStorage(
             false,
             "holbegram_images/profile_pics",
             file,
           );
+          photoUrl = photoData['url'] ?? "";
         } catch (error) {
           print("Image upload failed: $error");
         }
