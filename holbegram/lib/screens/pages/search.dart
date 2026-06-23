@@ -3,7 +3,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 class Search extends StatefulWidget {
-  // 1. Must be StatefulWidget
   const Search({super.key});
 
   @override
@@ -12,7 +11,7 @@ class Search extends StatefulWidget {
 
 class _SearchState extends State<Search> {
   final TextEditingController _searchController = TextEditingController();
-  String _searchQuery = ""; // 2. Store the query here
+  String _searchQuery = "";
 
   @override
   void dispose() {
@@ -29,7 +28,7 @@ class _SearchState extends State<Search> {
         title: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 10.0),
           child: Container(
-            height: 50,
+            height: 45,
             decoration: BoxDecoration(
               color: Colors.grey[200],
               borderRadius: BorderRadius.circular(10),
@@ -43,7 +42,7 @@ class _SearchState extends State<Search> {
                   borderRadius: BorderRadius.circular(20),
                   borderSide: BorderSide.none,
                 ),
-                hintStyle: TextStyle(fontSize: 22, color: Colors.grey[600]),
+                hintStyle: TextStyle(fontSize: 20, color: Colors.grey[600]),
                 filled: true,
                 fillColor: Colors.transparent,
                 suffixIcon: _searchQuery.isNotEmpty

@@ -1099,6 +1099,10 @@ Inside `utils/posts.dart`:
 
 </summary>
 
+#### Task test rendering of the Add post page:
+
+<img width="400px" src="./readme_pics/task12_add_post_rendering.gif">   
+
 Inside `add_image.dart` we are going to create this UI:
 
 <img src="./readme_pics/task10_01.jpg">
@@ -1128,6 +1132,10 @@ Call `uploadPost` when you press on `Post` and make sure to redirect to the `Hom
 
 </summary>
 
+#### Task test rendering of the Search page:
+
+<img width="400px" src="./readme_pics/task13_search_page_rendering.gif">   
+
 Inside `search.dart` we are going to create this UI:
 
 <img src="./readme_pics/task13_00.jpg">
@@ -1152,6 +1160,10 @@ Inside `search.dart` we are going to create this UI:
 
 </summary>
 
+#### Task test rendering of the Add post page:
+
+<img width="400px" src="./readme_pics/task14_favorite_rendering.gif">   
+
 Inside `favorite.dart` we are going to create this UI:
 
 <img src="./readme_pics/task14_00.jpg">
@@ -1173,6 +1185,10 @@ When clicking on the `Icons.bookmark` in the Feed the image get saved and it app
 ### Task 15. Profile
 
 </summary>
+
+#### Task test rendering of the Add post page:
+
+<img width="400px" src="./readme_pics/task15_profile_rendering.gif">   
 
 Inside `profile.dart` we are going to create this UI:
 

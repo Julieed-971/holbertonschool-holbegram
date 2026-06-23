@@ -33,7 +33,7 @@ class Feed extends StatelessWidget {
           ),
         ],
       ),
-      body: Posts()
+      body: Posts(),
     );
   }
 }

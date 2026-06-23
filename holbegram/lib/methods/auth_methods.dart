@@ -93,6 +93,15 @@ class AuthMethode {
     }
   }
 
+  Future<void> signOut() async {
+    try {
+      await _auth.signOut();
+    } catch (e) {
+      print("Error signing out: $e");
+      rethrow;
+    }
+  }
+
   Future<Users> getUserDetails() async {
     if (_auth.currentUser == null) {
       throw Exception("No user currently logged in");

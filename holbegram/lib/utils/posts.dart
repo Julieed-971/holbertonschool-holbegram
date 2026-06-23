@@ -16,149 +16,256 @@ class _PostsState extends State<Posts> {
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder(
-      stream: _firestore.collection('posts').snapshots(),
-      builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
-        if (snapshot.hasError) {
-          return Center(child: Text("Error: ${snapshot.error}"));
-        }
-        if (!snapshot.hasData) {
-          return const Center(child: CircularProgressIndicator());
-        }
-        final posts = snapshot.data!.docs;
-        return ListView.builder(
-          itemCount: posts.length,
-          itemBuilder: (context, index) {
-            final postData = posts[index].data() as Map<String, dynamic>;
-            final String username = postData['username'] ?? 'Unknown';
-            final String profImage = postData['profImage'] ?? '';
-            final String caption = postData['caption'] ?? '';
-            final String postUrl = postData['postUrl'] ?? '';
-            final String postId = posts[index].id;
-            final String publicId = postData['publicId'] ?? '';
+    return Consumer<UserProvider>(
+      builder: (context, userProvider, child) {
+        return StreamBuilder(
+          stream: _firestore.collection('posts').snapshots(),
+          builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+            if (snapshot.hasError) {
+              return Center(child: Text("Error: ${snapshot.error}"));
+            }
+            if (!snapshot.hasData) {
+              return const Center(child: CircularProgressIndicator());
+            }
+            final posts = snapshot.data!.docs;
+            return ListView.builder(
+              itemCount: posts.length,
+              itemBuilder: (context, index) {
+                final postData = posts[index].data() as Map<String, dynamic>;
+                final String username = postData['username'] ?? 'Unknown';
+                final String profImage = postData['profImage'] ?? '';
+                final String caption = postData['caption'] ?? '';
+                final String postUrl = postData['postUrl'] ?? '';
+                final String postId = posts[index].id;
+                final String publicId = postData['publicId'] ?? '';
 
-            return SingleChildScrollView(
-              child: Container(
-                margin: EdgeInsetsGeometry.lerp(
-                  const EdgeInsets.all(8),
-                  const EdgeInsets.all(8),
-                  10,
-                ),
-                height: 540, // Fixed height as per instructions
-                decoration: BoxDecoration(
-                  color: const Color.fromARGB(255, 255, 255, 255),
-                  borderRadius: BorderRadius.circular(25),
-                ),
-                child: Column(
-                  children: [
-                    Container(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Row(
-                        children: [
-                          // Profile Image
-                          Container(
-                            width: 40,
-                            height: 40,
-                            decoration: const BoxDecoration(
-                              shape: BoxShape.circle,
-                            ),
-                            child: ClipOval(
-                              child: profImage.isNotEmpty
-                                  ? Image.network(profImage, fit: BoxFit.cover)
-                                  : const Icon(Icons.person), // Fallback
-                            ),
+                final userProvider = Provider.of<UserProvider>(
+                  context,
+                  listen: false,
+                );
+                final currentUser = userProvider.user;
+
+                final List<dynamic> savedPosts = currentUser?.saved ?? [];
+                final bool isSaved = savedPosts.contains(postId);
+                final String postOwnerUid = postData['uid'] ?? '';
+                final String currentUid = currentUser?.uid ?? '';
+                final bool isOwner = postOwnerUid == currentUid;
+
+                return SingleChildScrollView(
+                  child: Container(
+                    margin: EdgeInsetsGeometry.lerp(
+                      const EdgeInsets.all(8),
+                      const EdgeInsets.all(8),
+                      10,
+                    ),
+                    height: 540, // Fixed height as per instructions
+                    decoration: BoxDecoration(
+                      color: const Color.fromARGB(255, 255, 255, 255),
+                      borderRadius: BorderRadius.circular(25),
+                    ),
+                    child: Column(
+                      children: [
+                        Container(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Row(
+                            children: [
+                              // Profile Image
+                              Container(
+                                width: 40,
+                                height: 40,
+                                decoration: const BoxDecoration(
+                                  shape: BoxShape.circle,
+                                ),
+                                child: ClipOval(
+                                  child: profImage.isNotEmpty
+                                      ? Image.network(
+                                          profImage,
+                                          fit: BoxFit.cover,
+                                        )
+                                      : const Icon(Icons.person), // Fallback
+                                ),
+                              ),
+                              const SizedBox(width: 10),
+                              // Username
+                              Text(
+                                username,
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              const Spacer(),
+
+                              // More Icon
+                              isOwner
+                                  ? IconButton(
+                                      icon: const Icon(Icons.more_horiz),
+                                      onPressed: () async {
+                                        // Confirm deletion (Optional but good UX)
+                                        bool confirmDelete = await showDialog(
+                                          context: context,
+                                          builder: (context) => AlertDialog(
+                                            title: const Text("Delete Post?"),
+                                            content: const Text(
+                                              "This cannot be undone.",
+                                            ),
+                                            actions: [
+                                              TextButton(
+                                                onPressed: () => Navigator.pop(
+                                                  context,
+                                                  false,
+                                                ),
+                                                child: const Text("Cancel"),
+                                              ),
+                                              TextButton(
+                                                onPressed: () => Navigator.pop(
+                                                  context,
+                                                  true,
+                                                ),
+                                                child: const Text(
+                                                  "Delete",
+                                                  style: TextStyle(
+                                                    color: Colors.red,
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        );
+
+                                        if (confirmDelete != true) return;
+
+                                        try {
+                                          await PostStorage().deletePost(
+                                            postId,
+                                            publicId,
+                                            currentUid,
+                                          );
+                                          await userProvider.refreshUser();
+                                          if (mounted) {
+                                            ScaffoldMessenger.of(
+                                              context,
+                                            ).showSnackBar(
+                                              const SnackBar(
+                                                content: Text("Post Deleted"),
+                                              ),
+                                            );
+                                          }
+                                        } catch (error) {
+                                          if (mounted) {
+                                            ScaffoldMessenger.of(
+                                              context,
+                                            ).showSnackBar(
+                                              SnackBar(
+                                                content: Text("Error: $error"),
+                                              ),
+                                            );
+                                          }
+                                        }
+                                      },
+                                    )
+                                  : const SizedBox.shrink(),
+                            ],
                           ),
-                          const SizedBox(width: 10),
-                          // Username
-                          Text(
-                            username,
+                        ),
+                        // --- CAPTION ---
+                        SizedBox(
+                          child: Text(
+                            caption,
+                            style: const TextStyle(fontSize: 14),
+                          ),
+                        ),
+
+                        const SizedBox(height: 10),
+
+                        // --- POST IMAGE ---
+                        Container(
+                          width: 350,
+                          height: 350,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(25),
+                          ),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(25),
+                            child: postUrl.isNotEmpty
+                                ? Image.network(postUrl, fit: BoxFit.cover)
+                                : const Center(child: Icon(Icons.broken_image)),
+                          ),
+                        ),
+
+                        // --- ADD MISSING ICONS (Like, Comment, Share) ---
+                        // The instructions say "Add the missing Icons that appears in the Picture"
+                        // Usually these go below the image.
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Row(
+                            children: [
+                              IconButton(
+                                icon: const Icon(Icons.favorite_border),
+                                onPressed: () {},
+                              ),
+                              IconButton(
+                                icon: const Icon(Icons.mode_comment_outlined),
+                                onPressed: () {},
+                              ),
+                              IconButton(
+                                icon: const Icon(Icons.send_outlined),
+                                onPressed: () {},
+                              ),
+                              const Spacer(),
+                              IconButton(
+                                icon: Icon(
+                                  isSaved
+                                      ? Icons.bookmark
+                                      : Icons.bookmark_border,
+                                  color: isSaved ? Colors.black : null,
+                                ),
+                                onPressed: () async {
+                                  if (currentUser == null) {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(
+                                        content: Text("Please log in"),
+                                      ),
+                                    );
+                                    return;
+                                  }
+                                  try {
+                                    await PostStorage().savePost(
+                                      currentUser.uid,
+                                      postId,
+                                    );
+                                    await userProvider.refreshUser();
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                        content: Text(
+                                          isSaved
+                                              ? "Post unsaved"
+                                              : "Post saved",
+                                        ),
+                                        duration: const Duration(seconds: 1),
+                                      ),
+                                    );
+                                  } catch (error) {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(content: Text("Error: $error")),
+                                    );
+                                  }
+                                },
+                              ),
+                            ],
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                          child: Text(
+                            "${postData['likes']?.length ?? 0} Liked", // Safe access in case likes is null
                             style: const TextStyle(fontWeight: FontWeight.bold),
                           ),
-                          const Spacer(),
-                          // More Icon
-                          IconButton(
-                            icon: const Icon(Icons.more_horiz),
-                            onPressed: () async {
-                              try {
-                                await PostStorage().deletePost(
-                                  postId,
-                                  publicId,
-                                );
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(content: Text("Post Deleted")),
-                                );
-                              } catch (error) {
-                                throw Exception(
-                                  'Error deleting the post: ${error}',
-                                );
-                              }
-                            },
-                          ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
-                    // --- CAPTION ---
-                    SizedBox(
-                      child: Text(
-                        caption,
-                        style: const TextStyle(fontSize: 14),
-                      ),
-                    ),
-
-                    const SizedBox(height: 10),
-
-                    // --- POST IMAGE ---
-                    Container(
-                      width: 350,
-                      height: 350,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(25),
-                      ),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(25),
-                        child: postUrl.isNotEmpty
-                            ? Image.network(postUrl, fit: BoxFit.cover)
-                            : const Center(child: Icon(Icons.broken_image)),
-                      ),
-                    ),
-
-                    // --- ADD MISSING ICONS (Like, Comment, Share) ---
-                    // The instructions say "Add the missing Icons that appears in the Picture"
-                    // Usually these go below the image.
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Row(
-                        children: [
-                          IconButton(
-                            icon: const Icon(Icons.favorite_border),
-                            onPressed: () {},
-                          ),
-                          IconButton(
-                            icon: const Icon(Icons.mode_comment_outlined),
-                            onPressed: () {},
-                          ),
-                          IconButton(
-                            icon: const Icon(Icons.send_outlined),
-                            onPressed: () {},
-                          ),
-                          const Spacer(),
-                          IconButton(
-                            icon: const Icon(Icons.bookmark_border),
-                            onPressed: () {},
-                          ),
-                        ],
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                      child: Text(
-                        "${postData['likes']?.length ?? 0} Liked", // Safe access in case likes is null
-                        style: const TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+                  ),
+                );
+              },
             );
           },
         );

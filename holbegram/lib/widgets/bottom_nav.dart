@@ -101,7 +101,7 @@ class _BottomNavState extends State<BottomNav> {
           BottomNavyBarItem(
             icon: const Icon(Icons.favorite_outline),
             title: const Text(
-              "Likes",
+              "Favorite",
               style: TextStyle(fontSize: 25, fontFamily: "Billabong"),
             ),
             activeColor: const Color.fromARGB(218, 226, 37, 24),

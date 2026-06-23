@@ -104,6 +104,12 @@ class _AddImageState extends State<AddImage> {
           ).showSnackBar(const SnackBar(content: Text("Post published!")));
           _captionController.clear();
           setState(() => _image = null);
+
+          final userProvider = Provider.of<UserProvider>(
+            context,
+            listen: false,
+          );
+          await userProvider.refreshUser();
         }
       } else {
         if (mounted) {
